@@ -2,6 +2,7 @@ import Header from "@/components/Header/Header";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat, Poppins } from "next/font/google";
+import Footer from "@/components/Footer/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -32,7 +33,7 @@ export default function RootLayout({
       <body>
         <Header/>
         <main className="bg-primary-gradient min-h-screen ">{children}</main>
-        <footer>Footer</footer>
+        <Footer/>
       </body>
     </html>
   );
