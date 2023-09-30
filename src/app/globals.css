@@ -4,5 +4,6 @@
 
 html{
   font-family: var(--font-montserrat), var(--font-poppins), sans-serif;
+  background-color: black;
 }
 
