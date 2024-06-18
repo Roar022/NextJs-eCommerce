@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import { NextPage } from "next";
-import CarouselSlider from "@/components/CarouselSlider/CarouselSlider";
-import { getGame } from "@/libs/apis";
+import React from "react";
 import GameDetailsClient from "@/components/GameDetails/GameDetailsClient";
 import GameDetailsServer from "@/components/GameDetails/GameDetailsServer";
 

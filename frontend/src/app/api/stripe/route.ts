@@ -1,3 +1,4 @@
+import { createOrder, updateGameQuantity } from "@/libs/apis";
 import sanityClient from "@/libs/sanity";
 import { GameSubset, Games } from "@/models/games";
 import { NextResponse } from "next/server";
@@ -6,8 +7,9 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 //   apiVersion: "2024-01-29",
 });
+
 export async function POST(req: Request, res: Response) {
-  const cartItems = (await req.json()) as Games[];
+  const {cartItems, userEmail} = (await req.json());
   const origin = req.headers.get("origin");
   const updatedItmes: GameSubset[] =
     (await fetchAndCalculateItemPricesAndQuatity(cartItems)) as GameSubset[];
@@ -37,6 +39,10 @@ export async function POST(req: Request, res: Response) {
       mode: "payment",
       success_url: `${origin}/?success=true`,
     });
+    await updateGameQuantity(updatedItmes);
+
+		await createOrder(updatedItmes, userEmail);
+
     return NextResponse.json(session, {
       status: 200,
       statusText: "Payment Successful",

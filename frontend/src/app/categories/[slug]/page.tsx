@@ -1,7 +1,6 @@
 import GameCard from "@/components/GameCard/GameCard";
 import NewsLetter from "@/components/NewsLetter/NewsLetter";
 import { getCategoriesGames, getCategory } from "@/libs/apis";
-import sanityClient from "@/libs/sanity";
 import React from "react";
 
 interface GameCategoryProps {
@@ -16,7 +15,7 @@ const GameCategory = async (props: { params: { slug: string } }) => {
   // const games = await sanityClient();
   const games = await getCategoriesGames(slug);
   const {subtitle}  = await getCategory(slug);
-  console.log(subtitle);
+  // console.log(subtitle);
   // console.log(games);
 
   return (
