@@ -7,13 +7,18 @@ interface CartTotals {
   totalPrice: number;
   totalQuantity: number;
 }
+
 const useCartTotals = (): CartTotals => {
+
   const [totals, setTotals] = useState<CartTotals>({
     totalPrice: 0,
     totalQuantity: 0,
   });
+
   const { cartItems } = useAppSelector((state) => state.cart);
+
   useEffect(() => {
+    
     const calculateCartTotals = (): void => {
       let totalPrice = 0;
       let totalQuantity = 0;

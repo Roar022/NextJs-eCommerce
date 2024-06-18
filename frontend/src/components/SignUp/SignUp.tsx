@@ -7,9 +7,12 @@ interface SingUpProps {
 }
 const SignUp: FC<SingUpProps> = (props) => {
   const { isSignUpFormOpen, toggleform } = props;
+
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
+
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  
   const signUpHandler = async () => {
     if (!emailRef.current || !passwordRef.current) return;
     setIsFormSubmitting(true);

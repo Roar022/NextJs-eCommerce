@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks/storeHook";
+import { useAppDispatch } from "@/hooks/storeHook";
 import { toggleCart } from "@/redux/features/cartSlice";
 import useCartTotals from "@/hooks/useCartTotals";
 import SignUp from "../SignUp/SignUp";
@@ -47,7 +47,8 @@ const Header = () => {
 
   const signinHandler = async () => {
     try {
-      await signIn("google", { callbackUrl: "http://localhost" });
+      // await signIn("google", { callbackUrl: "http://localhost" });
+      await signIn();
     } catch (error) {
       console.log("Sign In ERROR", error);
     }

@@ -1,11 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { NextPage } from "next";
 import { FaShoppingCart } from "react-icons/fa";
 import CarouselSlider from "@/components/CarouselSlider/CarouselSlider";
-import { getGame, getGames } from "@/libs/apis";
+import { getGame } from "@/libs/apis";
 import { Games } from "@/models/games";
-import { useDispatch } from "react-redux";
 import { useAppDispatch } from "@/hooks/storeHook";
 import { addItemToCart } from "@/redux/features/cartSlice";
 
