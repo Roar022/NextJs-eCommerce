@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
           label: "Password",
           type: "password",
         },
-        async authorize(credentials) {
+        async authorize(credentials,req) {
           if (!credentials?.email || !credentials?.password) {
             throw new Error("Please provide valid credentials");
           }

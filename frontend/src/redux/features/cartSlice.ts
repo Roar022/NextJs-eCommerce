@@ -1,6 +1,5 @@
 import { Games } from "@/models/games";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 
 interface CartState {
   showCart: boolean;
@@ -14,7 +13,7 @@ const cartFromLocalStorage =
 
 const initialState: CartState = {
   showCart: false,
-  cartItems: [],
+  cartItems: cartFromLocalStorage,
 };
 
 const cartSlice = createSlice({
