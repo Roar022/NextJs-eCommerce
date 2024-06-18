@@ -1,28 +1,37 @@
 "use client";
+import { FC, useEffect, useState } from "react";
+import { RiCloseLine } from "react-icons/ri";
+import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHook";
+import { useSession } from "next-auth/react";
+import { removeItemFromCart, toggleCart } from "@/redux/features/cartSlice";
+import Image from "next/image";
 import useCartTotals from "@/hooks/useCartTotals";
 import { getStripe } from "@/libs/loadStripe";
-import { removeItemFromCart, toggleCart } from "@/redux/features/cartSlice";
-import axios from "axios";
-import Image from "next/image";
-import { it } from "node:test";
-import React, { FC, useEffect, useState } from "react";
-import { RiCloseLine } from "react-icons/ri";
 
 const Cart: FC = () => {
   const { showCart, cartItems } = useAppSelector((state) => state.cart);
   const [renderComponent, setRenderComponent] = useState(false);
 
-  const { totalPrice, totalQuantity } = useCartTotals();
+  const { totalPrice } = useCartTotals();
+
+  const { data: session } = useSession();
 
   const dispatch = useAppDispatch();
-  const handleRemoveItem = (id: string) => {
+
+  const handleRemoveItem = (id: string) =>
     dispatch(removeItemFromCart({ _id: id }));
-  };
+
   const checkoutHandler = async () => {
     const stripe = await getStripe();
-    const { data } = await axios.post("/api/stripe", cartItems);
+
+    const { data } = await axios.post("/api/stripe", {
+      cartItems,
+      userEmail: session?.user?.email,
+    });
+
     if (!data) return;
+    localStorage.removeItem("cart");
     stripe.redirectToCheckout({ sessionId: data.id });
   };
 
@@ -42,20 +51,20 @@ const Cart: FC = () => {
         <h2 className={classNames.title}>Shopping Cart</h2>
         <button
           className={classNames.closeBtn}
-          onClick={() => dispatch(() => toggleCart())}
+          onClick={() => dispatch(toggleCart())}
         >
           X
         </button>
       </div>
-      <div className={classNames.container}>
+
+      <div className={classNames.itemContainer}>
         {cartItems && cartItems.length > 0 ? (
           cartItems.map((item) => (
             <div key={item._id} className={cartItemClassNames.container}>
-              {/* Cart Content */}
               <Image
-                src={item.images[0].url}
                 width={100}
                 height={100}
+                src={item.images[0].url}
                 alt={item.name}
                 className={cartItemClassNames.image}
               />
@@ -86,14 +95,12 @@ const Cart: FC = () => {
         <span className={classNames.subtotalText}>Subtotal</span>
         <span className={classNames.subtotalPrice}>$ {totalPrice}</span>
       </div>
-      <button onClick={()=>checkoutHandler()} className={classNames.checkoutBtn}>
-        Checkout{" "}
+      <button onClick={checkoutHandler} className={classNames.checkoutBtn}>
+        Checkout
       </button>
     </div>
   );
 };
-
-export default Cart;
 
 const classNames = {
   container:
@@ -120,3 +127,5 @@ const cartItemClassNames = {
   removeButton:
     "w-6 h-6 bg-gray-200 text-gray-600 flex items-center justify-center rounded ml-2",
 };
+
+export default Cart;
