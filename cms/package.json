@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "@sanity/cli": "^3.46.1",
+    "@sanity/vision": "^3.46.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sanity": "^3.46.1",
+    "stripe": "^15.12.0",
+    "styled-components": "^6.1.11"
+  },
+  "name": "nextjs-ecommerce",
+  "version": "1.0.0",
+  "main": "package.json",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^20.14.5",
+    "typescript": "^5.4.5"
+  }
+}
