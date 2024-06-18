@@ -1,42 +1,46 @@
 "use client";
-import Image from "next/image";
-import { FC, useEffect, useState } from "react";
+
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import Image from "next/image";
+import { FC, useState, useEffect } from "react";
+
 interface CarouselSliderProps {
   images: { _key: string; url: string }[];
   interval?: number;
 }
+
 const CarouselSlider: FC<CarouselSliderProps> = (props) => {
   const { images, interval = 3000 } = props;
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const goToNextImage = () => {
-    setCurrentImageIndex((prev) => {
-      if (prev === images.length - 1) {
+    setCurrentImageIndex((prevIndex) => {
+      if (prevIndex === images.length - 1) {
         return 0;
       } else {
-        return prev + 1;
+        return prevIndex + 1;
       }
     });
   };
 
   const goToPrevImage = () => {
-    setCurrentImageIndex((prev) => {
-      if (prev === 0) {
+    setCurrentImageIndex((prevIndex) => {
+      if (prevIndex === 0) {
         return images.length - 1;
       } else {
-        return prev - 1;
+        return prevIndex - 1;
       }
     });
   };
 
   useEffect(() => {
     const timer = setInterval(() => {
-      // Go To Next Image
       goToNextImage();
     }, interval);
+
     return () => clearInterval(timer);
-  }, [interval,currentImageIndex]);
+  }, [interval, currentImageIndex]);
 
   return (
     <div className={classNames.container}>
@@ -52,6 +56,7 @@ const CarouselSlider: FC<CarouselSliderProps> = (props) => {
           }`}
         />
       ))}
+
       <button className={classNames.previousButton} onClick={goToPrevImage}>
         <AiOutlineArrowLeft className="text-4xl" />
       </button>
