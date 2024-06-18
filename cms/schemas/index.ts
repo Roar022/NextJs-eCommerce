@@ -1,4 +1,5 @@
-import category from "./category";
-import games from "./games";
+import category from './category'
+import game from './games'
+import order from './order'
 
-export const schemaTypes = [category, games]
+export const schemaTypes = [category, game, order]
