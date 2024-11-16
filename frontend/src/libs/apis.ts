@@ -17,6 +17,10 @@ export const getCategories = async (): Promise<Category[]> => {
 };
 
 export const getGames = async (): Promise<Games[]> => {
+  // *[ _id == ^.category._ref][0] --> retrieves the category associated with each game.
+  // ^.category._ref --> reference to the category ID
+  // The subquery fetches the first category document ([0]) that matches the referenced ID.
+
   const query = `*[_type == "game"]{
     name,
     price,
@@ -29,7 +33,9 @@ export const getGames = async (): Promise<Games[]> => {
             current
         }
     },
-    slug,
+    slug{
+      current
+    },
     quantity,
     description,
     }`;
@@ -43,7 +49,7 @@ export const getCategoriesGames = async (slug: string): Promise<Games[]> => {
     name,
     price,
     images,
-    isFeatured,
+    isFeatured, 
     isTrending,
     'category': *[ _id == ^.category._ref][0]{
         name,

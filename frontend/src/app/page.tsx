@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import GameCategoryCard from "@/components/GameCategoryCard/GameCategoryCard";
 import { getCategories, getGames, getRecentGames } from "@/libs/apis";
+import NewsLetter from "@/components/NewsLetter/NewsLetter";
 
 export default async function Home() {
   const categories = await getCategories();
@@ -64,6 +65,7 @@ export default async function Home() {
           </section>
         </>
       )}
+
       <section
         style={{
           backgroundImage:
@@ -91,6 +93,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+
       <section id="recent-games" className={recentGamesClasses.section}>
         <h2 className={recentGamesClasses.heading}>Our Recent Games</h2>
         <p className={recentGamesClasses.subHeading}>
@@ -113,6 +117,7 @@ export default async function Home() {
           See All
         </Link>
       </section>
+      <NewsLetter/>
     </>
   );
 }
@@ -184,7 +189,7 @@ const styles = {
   categoryHeading:
     "text-center max-w-md sm:max-w-lg md:max-w-2xl mx-auto text-primary font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 leading-[130%,187%,130%,130%]",
   categorySubHeading:
-    "text-center bg-primary-gradient px-8 rounded-3xl py-5 max-w-md sm:max-w-lg md:max-w-2xl mx-auto text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-8",
+    "text-center bg-linear-gradient px-8 rounded-3xl py-5 max-w-md sm:max-w-lg md:max-w-2xl mx-auto text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-8",
 };
 
 // const categories = [

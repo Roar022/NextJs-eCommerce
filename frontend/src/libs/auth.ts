@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
         password: {
           label: "Password",
           type: "password",
-        },
+        },},
         async authorize(credentials,req) {
           if (!credentials?.email || !credentials?.password) {
             throw new Error("Please provide valid credentials");
@@ -40,14 +40,14 @@ export const authOptions: NextAuthOptions = {
           } else {
             return null;
           }
-        },
+       
       },
     }),
   ],
   session: {
     strategy: "jwt",
   },
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(clientPromise) ,
   debug: process.env.NODE_ENV === "development",
   secret: process.env.NEXTAUTH_SECRET,
 };

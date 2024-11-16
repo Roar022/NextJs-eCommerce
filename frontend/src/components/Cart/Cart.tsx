@@ -10,6 +10,7 @@ import useCartTotals from "@/hooks/useCartTotals";
 import { getStripe } from "@/libs/loadStripe";
 
 const Cart: FC = () => {
+  // from local storage
   const { showCart, cartItems } = useAppSelector((state) => state.cart);
   const [renderComponent, setRenderComponent] = useState(false);
 
@@ -22,18 +23,44 @@ const Cart: FC = () => {
   const handleRemoveItem = (id: string) =>
     dispatch(removeItemFromCart({ _id: id }));
 
-  const checkoutHandler = async () => {
-    const stripe = await getStripe();
+  // const checkoutHandler = async () => {
 
-    const { data } = await axios.post("/api/stripe", {
-      cartItems,
-      userEmail: session?.user?.email,
-    });
+  //   const stripe = await getStripe();
+  //   console.log(cartItems, session?.user?.email);
+  //   const { data } = await axios.post("/api/stripe", {
+  //     cartItems,
+  //     userEmail: session?.user?.email,
+  //   });
+
+  //   if (!data) return;
+  //   localStorage.removeItem("cart");
+  //   stripe.redirectToCheckout({ sessionId: data.id });
+  // };
+  const checkoutHandler = async () => {
+  const stripe = await getStripe();
+
+  try {
+    console.log(cartItems, session?.user?.email); // Check data before the request
+
+    const { data } = await axios.post(
+      "/api/stripe",
+      {
+        cartItems,
+        userEmail: session?.user?.email,
+      },
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
     if (!data) return;
     localStorage.removeItem("cart");
     stripe.redirectToCheckout({ sessionId: data.id });
-  };
+  } catch (error) {
+    console.error("Checkout error:", error.response ? error.response.data : error.message);
+    alert("There was an issue with your checkout. Please try again.");
+  }
+};
 
   useEffect(() => {
     setRenderComponent(true);
@@ -129,3 +156,4 @@ const cartItemClassNames = {
 };
 
 export default Cart;
+

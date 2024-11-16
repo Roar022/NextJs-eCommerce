@@ -1,12 +1,15 @@
 import GameCard from "@/components/GameCard/GameCard";
 import NewsLetter from "@/components/NewsLetter/NewsLetter";
 import { getCategoriesGames, getCategory } from "@/libs/apis";
+import { NextPage } from "next";
 import React from "react";
 
 interface GameCategoryProps {
   params: { slug: string };
 }
-const GameCategory = async (props: { params: { slug: string } }) => {
+// Both Working
+// const GameCategory: NextPage<GameCategoryProps> = async (props) => {
+const GameCategory = async (props:GameCategoryProps) => {
   const {
     params: { slug },
   } = props;
@@ -14,7 +17,8 @@ const GameCategory = async (props: { params: { slug: string } }) => {
   // console.log(props);
   // const games = await sanityClient();
   const games = await getCategoriesGames(slug);
-  const {subtitle}  = await getCategory(slug);
+  // Separate fetching if there is no game
+  const { subtitle } = await getCategory(slug);
   // console.log(subtitle);
   // console.log(games);
 
@@ -25,6 +29,8 @@ const GameCategory = async (props: { params: { slug: string } }) => {
           <div className="lg:w-3/4">
             <h1 className={classNames.title}>{slug.toUpperCase()} Games</h1>
             <p className={classNames.subtitle}>{subtitle}</p>
+            {/* Working Fine if there is at least One game */}
+            {/* <p className={classNames.subtitle}>{games[0].category.subtitle}</p> */}
           </div>
         </div>
       </section>
@@ -32,7 +38,7 @@ const GameCategory = async (props: { params: { slug: string } }) => {
         <h2 className={classNames.heading}>{slug.toUpperCase()} Games</h2>
         <p className={classNames.subHeading}>
           Checkout our latest collection of
-          <span className="text-primary">{slug}</span> games
+          <span className="text-primary"> {slug}</span> games
         </p>
         <div className="flex rounded gap-8 flex-wrap py-10">
           {games.map((game) => (

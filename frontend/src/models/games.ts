@@ -1,5 +1,3 @@
-import { constants } from "buffer";
-
 export interface Games {
   _id: string;
   name: string;
@@ -15,8 +13,6 @@ export interface Games {
   quantity: number;
   description: string;
 }
-
-export type GameSubset = Pick<
-  Games,
-  "_id" | "price" | "quantity" | "images" | "name"
-> & { maxQuantity: number };
+// For stripe route.ts
+export type GameSubset = Pick<Games,"_id" | "price" | "quantity" | "images" | "name">
+ & { maxQuantity: number };

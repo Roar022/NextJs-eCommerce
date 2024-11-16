@@ -24,12 +24,12 @@ const SignUp: FC<SingUpProps> = (props) => {
       setIsFormSubmitting(false);
       // toggleform();
       if (response.data) toast.success(`${response.statusText}`);
+      toggleform();
     } catch (error) {
       setIsFormSubmitting(false);
       toast.error("Something went Wrong");
       console.log("error", error);
     }
-    toggleform();
   };
 
   return isSignUpFormOpen ? (

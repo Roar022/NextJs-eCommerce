@@ -4,7 +4,8 @@ import { getGames } from "@/libs/apis";
 import { NextPage } from "next";
 
 const Games: NextPage = async (props) => {
-  // console.log(props);
+  console.log(props);
+  // { params: {}, searchParams: {} }
   const games = await getGames();
 
   return (

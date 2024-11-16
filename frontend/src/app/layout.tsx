@@ -3,7 +3,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat, Poppins } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
-import { Provider } from "react-redux";
 import { Providers } from "@/redux/Providers";
 import Cart from "@/components/Cart/Cart";
 import Toast from "@/components/Toast/Toast";
@@ -24,8 +23,19 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Nextjs Ecommerce",
-  description: "This is shop where we sell online games",
+  title: "GameOn - Welcome to GameOn. Try our latest games.",
+  description: "GameOn is platform where you can purchase your favourite video games.",
+  metadataBase: new URL('https://gameon-ten.vercel.app/'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+      'de-DE': '/de-DE',
+    },
+  },
+  openGraph: {
+    images: '../../public/images/mainpage.png',
+  },
 };
 
 export default function RootLayout({
