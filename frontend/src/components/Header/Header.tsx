@@ -52,7 +52,7 @@ const Header = () => {
       // await signIn("google", { callbackUrl: "http://localhost" });
       await signIn();
     } catch (error) {
-      console.log("Sign In ERROR", error);
+      // console.log("Sign In ERROR", error);
     }
   };
   return (

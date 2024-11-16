@@ -40,7 +40,7 @@ const Cart: FC = () => {
   const stripe = await getStripe();
 
   try {
-    console.log(cartItems, session?.user?.email); // Check data before the request
+    // console.log(cartItems, session?.user?.email); // Check data before the request
 
     const { data } = await axios.post(
       "/api/stripe",
@@ -57,7 +57,7 @@ const Cart: FC = () => {
     localStorage.removeItem("cart");
     stripe.redirectToCheckout({ sessionId: data.id });
   } catch (error) {
-    console.error("Checkout error:", error.response ? error.response.data : error.message);
+    // console.error("Checkout error:", error.response ? error.response.data : error.message);
     alert("There was an issue with your checkout. Please try again.");
   }
 };
