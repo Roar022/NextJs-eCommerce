@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@auth/mongodb-adapter": "^2.0.14",
+    "@auth/mongodb-adapter": "^3.7.4",
     "@reduxjs/toolkit": "^2.0.1",
     "@stripe/stripe-js": "^2.4.0",
     "axios": "^1.7.2",
@@ -18,7 +18,7 @@
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.3",
     "next": "latest",
-    "next-auth": "^4.24.5",
+    "next-auth": "^4.24.10",
     "next-sanity-client": "^1.0.7",
     "react": "latest",
     "react-dom": "latest",
