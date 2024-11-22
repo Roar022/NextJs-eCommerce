@@ -9,8 +9,8 @@ interface GameCategoryProps {
 }
 // Both Working
 // const GameCategory: NextPage<GameCategoryProps> = async (props) => {
-const GameCategory = async ({params}:GameCategoryProps) => {
-  const {slug}=params;
+const GameCategory = async (props:{params:{slug: string}}) => {
+  const {params: {slug}}= props;
   // console.log(props);
   // const games = await sanityClient();
   const games = await getCategoriesGames(slug);
