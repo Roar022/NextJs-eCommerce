@@ -1,16 +1,18 @@
 import GameCard from "@/components/GameCard/GameCard";
 import NewsLetter from "@/components/NewsLetter/NewsLetter";
 import { getCategoriesGames, getCategory } from "@/libs/apis";
-import { NextPage } from "next";
 import React from "react";
+import { NextPage } from "next";
 
 interface GameCategoryProps {
   params: { slug: string };
 }
 // Both Working
-// const GameCategory: NextPage<GameCategoryProps> = async (props) => {
-const GameCategory = async ({ params }: GameCategoryProps) => {
-  const { slug } = await Promise.resolve(params);;
+const GameCategory: NextPage<GameCategoryProps> = async (props:GameCategoryProps) => {
+// const GameCategory = async (props: GameCategoryProps) => {
+  const { params:{
+    slug
+  } } =props;
   console.log(slug);
   // console.log(props);
   // const games = await sanityClient();
