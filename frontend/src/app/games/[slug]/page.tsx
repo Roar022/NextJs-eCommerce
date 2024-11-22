@@ -5,7 +5,7 @@ import GameDetailsServer from "@/components/GameDetails/GameDetailsServer";
 const GameItem = async (props: { params: { slug: string } }) => {
   // console.log(props);
   const {
-    params: { slug },
+    params:  { slug },
   } = props;
 
   return (

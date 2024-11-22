@@ -16,13 +16,16 @@ const Cart: FC = () => {
 
   const { totalPrice } = useCartTotals();
 
-  const { data: session } = useSession();
-
+  
   const dispatch = useAppDispatch();
-
+  
   const handleRemoveItem = (id: string) =>
     dispatch(removeItemFromCart({ _id: id }));
-
+  useEffect(() => {
+    setRenderComponent(true);
+  }, []);
+  const { data: session } = useSession();
+  console.log(session);
   // const checkoutHandler = async () => {
 
   //   const stripe = await getStripe();
@@ -36,35 +39,46 @@ const Cart: FC = () => {
   //   localStorage.removeItem("cart");
   //   stripe.redirectToCheckout({ sessionId: data.id });
   // };
-  const checkoutHandler = async () => {
+//   const checkoutHandler = async () => {
+//   const stripe = await getStripe();
+
+//   try {
+//     // console.log(cartItems, session?.user?.email); // Check data before the request
+
+//     const { data } = await axios.post(
+//       "/api/stripe",
+//       {
+//         cartItems,
+//         userEmail: session?.user?.email,
+//       },
+//       {
+//         headers: { "Content-Type": "application/json" },
+//       }
+//     );
+
+//     if (!data) return;
+//     localStorage.removeItem("cart");
+//     stripe.redirectToCheckout({ sessionId: data.id });
+//   } catch (error) {
+//     // console.error("Checkout error:", error.response ? error.response.data : error.message);
+//     alert("There was an issue with your checkout. Please try again.");
+//   }
+// };
+
+const checkoutHandler = async () => {
   const stripe = await getStripe();
 
-  try {
-    // console.log(cartItems, session?.user?.email); // Check data before the request
+  const { data } = await axios.post('/api/stripe', {
+    cartItems,
+    userEmail: session?.user?.email,
+  });
 
-    const { data } = await axios.post(
-      "/api/stripe",
-      {
-        cartItems,
-        userEmail: session?.user?.email,
-      },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+  if (!data) return;
 
-    if (!data) return;
-    localStorage.removeItem("cart");
-    stripe.redirectToCheckout({ sessionId: data.id });
-  } catch (error) {
-    // console.error("Checkout error:", error.response ? error.response.data : error.message);
-    alert("There was an issue with your checkout. Please try again.");
-  }
+  localStorage.removeItem('cart');
+
+  stripe.redirectToCheckout({ sessionId: data.id });
 };
-
-  useEffect(() => {
-    setRenderComponent(true);
-  }, []);
 
   if (!renderComponent) return <></>;
 

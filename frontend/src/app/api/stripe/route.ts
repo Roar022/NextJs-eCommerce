@@ -130,7 +130,7 @@ import { NextResponse } from 'next/server';
 import { createOrder, updateGameQuantity } from './../../../libs/apis';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-	apiVersion: '2023-10-16',
+	apiVersion: "2024-11-20.acacia",
 });
 
 import sanityClient from '@/libs/sanity';
@@ -162,7 +162,7 @@ export async function POST(req: Request, res: Response) {
 					currency: 'usd' || 'inr',
 					product_data: {
 						name: item.name,
-						images: [item.images[0].url],
+						images: item.images && item.images.length > 0 ? [item.images[0].url] : [],
 					},
 					unit_amount: parseInt((item.price * 100).toString()),
 				},
