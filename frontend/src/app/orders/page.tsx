@@ -38,40 +38,41 @@ const Orders = async () => {
 						</tr>
 					</thead>
 					<tbody>
-						{orderData.map((order: any) => {
-							const totalPrice = order.items.reduce((acc: any, item: any) => {
-								const itemPrice = item.quantity * item.game.price;
-								return acc + itemPrice;
-							}, 0);
+  {orderData.map((order: any) => {
+    const totalPrice = order.items.reduce((acc: any, item: any) => {
+      const itemPrice = item.quantity * item.game.price;
+      return acc + itemPrice;
+    }, 0);
 
-							return (
-								<tr
-									key={order._id}
-									className='border-b bg-gray-800 border-gray-700'
-								>
-									<th
-										scope='row'
-										className='px-6 py-4 font-medium whitespace-nowrap text-white'
-									>
-										{order.items.map((item: any) => (
-											<span key={item._id}>
-												{item.game.name} ({item.quantity}) <br />
-											</span>
-										))}
-									</th>
-									<td className='px-6 py-4'>
-										{order.items.map((item: any) => (
-											<span key={item._id}>
-												{item.game.price} <br />
-											</span>
-										))}
-									</td>
-									<td className='px-6 py-4'>{order.orderStatus}</td>
-									<td className='px-6 py-4'>$ {totalPrice}</td>
-								</tr>
-							);
-						})}
-					</tbody>
+    return (
+      <tr
+        key={order._id}
+        className="border-b bg-gray-800 border-gray-700"
+      >
+        <th
+          scope="row"
+          className="px-6 py-4 font-medium whitespace-nowrap text-white"
+        >
+          {order.items.map((item: any) => (
+            <span key={item._id}> {/* Add unique key here */}
+              {item.game.name} ({item.quantity}) <br />
+            </span>
+          ))}
+        </th>
+        <td className="px-6 py-4">
+          {order.items.map((item: any) => (
+            <span key={`price-${item._id}`}> {/* Add unique key here */}
+              {item.game.price} <br />
+            </span>
+          ))}
+        </td>
+        <td className="px-6 py-4">{order.orderStatus}</td>
+        <td className="px-6 py-4">$ {totalPrice}</td>
+      </tr>
+    );
+  })}
+</tbody>
+
 				</table>
 			</div>
 		</div>
