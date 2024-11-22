@@ -136,7 +136,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 import sanityClient from '@/libs/sanity';
 import { Games, GameSubset } from '@/models/games';
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
 	const { cartItems, userEmail } = await req.json();
 	const origin = req.headers.get('origin');
     // console.log("here")
