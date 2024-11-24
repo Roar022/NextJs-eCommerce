@@ -4,7 +4,7 @@ import { Games, GameSubset } from "@/models/games";
 import axios from "axios";
 
 export const getCategories = async (): Promise<Category[]> => {
-  const query = `*[_type == "category"] {
+  const query = `*[_type == "category"][0...10] {
     _id,
     name,
     slug{current},

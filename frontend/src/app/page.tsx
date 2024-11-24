@@ -12,7 +12,7 @@ export default async function Home() {
   const isTrendingGames = games?.filter((game) => game.isTrending);
   const isFeaturedGame = games?.find((game) => game.isFeatured);
   const recentGames = await getRecentGames();
-  // console.log(categories);
+  console.log(categories);
   // console.log(games);
   return (
     <>
