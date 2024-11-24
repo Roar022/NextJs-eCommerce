@@ -7,7 +7,7 @@ const Games: NextPage = async (props) => {
   // console.log(props);
   // { params: {}, searchParams: {} }
   const games = await getGames();
-
+  console.log("in app games",games);
   return (
     <div>
       <HeroSection />

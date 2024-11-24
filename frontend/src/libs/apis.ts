@@ -27,7 +27,7 @@ export const getGames = async (): Promise<Games[]> => {
     images,
     isFeatured,
     isTrending,
-    'category': *[ _id == ^.category._ref][0]{
+    'category': category->{
         name,
         slug{
             current
@@ -71,7 +71,7 @@ export const getCategory = async (slug: string): Promise<Category> => {
 };
 
 export const getRecentGames = async (): Promise<Games[]> => {
-  const query = `*[_type == "game"]| order(_createdAt desc)[0... 4]{
+  const query = `*[_type == "game"]| order(_createdAt desc)[0...3]{
     name,
     price,
     images,
@@ -88,7 +88,7 @@ export const getRecentGames = async (): Promise<Games[]> => {
     description,
     }`;
   const games: Games[] = await sanityClient.fetch({ query });
-
+  // console.log("games ",games);
   return games;
 };
 

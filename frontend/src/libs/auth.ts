@@ -68,7 +68,6 @@ export const authOptions: NextAuthOptions = {
         throw new Error("Authorization failed");
       }
     },
-  
     }),
   ],
   session: {
