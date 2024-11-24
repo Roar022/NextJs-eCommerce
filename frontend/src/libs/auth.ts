@@ -4,6 +4,7 @@ import clientPromise from "./mongodb";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoClient } from "mongodb";
+import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
   // Google, Github, likewise
@@ -32,16 +33,42 @@ export const authOptions: NextAuthOptions = {
             process.env.MONGODB_URI as string
           );
           const db = client.db();
-          const user = await db
-            .collection("users")
-            .findOne({ email: credentials.email });
-          if (user) {
-            return user as any;
-          } else {
-            return null;
-          }
+      //     const user = await db
+      //       .collection("users")
+      //       .findOne({ email: credentials.email });
+      //     if (user) {
+      //       return user as any;
+      //     } else {
+      //       return null;
+      //     }
        
-      },
+      // },
+      try {
+        // Find user by email
+        const user = await db.collection("users").findOne({ email: credentials.email });
+        if (!user) {
+          throw new Error("No user found with this email");
+        }
+  
+        // Compare passwords
+        const isPasswordCorrect = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        );
+  
+        if (!isPasswordCorrect) {
+          throw new Error("Invalid password");
+        }
+  
+        // Close connection and return user
+        await client.close();
+        return { id: user._id, email: user.email }; // Return essential user data
+      } catch (error:any) {
+        await client.close();
+        throw new Error("Authorization failed");
+      }
+    },
+  
     }),
   ],
   session: {
