@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
   
         // Close connection and return user
         await client.close();
-        return { id: user._id, email: user.email }; // Return essential user data
+        return user as any; // Return essential user data
       } catch (error:any) {
         await client.close();
         throw new Error("Authorization failed");
