@@ -176,7 +176,7 @@ export async function POST(req: Request) {
 		console.log("after session")
 		await updateGameQuantity(updatedItems);
 
-		await createOrder(updatedItems, userEmail);
+		await createOrder(updatedItems, userEmail,"shipped");
 		
 		return NextResponse.json(session, {
 			status: 200,

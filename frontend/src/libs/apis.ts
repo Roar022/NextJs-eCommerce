@@ -139,7 +139,7 @@ export const updateGameQuantity = async (games: GameSubset[]) => {
   return data;
 };
 
-export const createOrder = async (games: GameSubset[], userEmail: string) => {
+export const createOrder = async (games: GameSubset[], userEmail: string, orderStatus: string = "pending" ) => {
   const mutation = {
     mutations: [
       {
@@ -154,7 +154,7 @@ export const createOrder = async (games: GameSubset[], userEmail: string) => {
             quantity: game.quantity,
           })),
           userEmail,
-          orderStatus: "pending",
+          orderStatus,
         },
       },
     ],
