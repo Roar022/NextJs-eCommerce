@@ -2,7 +2,9 @@ import GameCard from "@/components/GameCard/GameCard";
 import HeroSection from "@/components/HeroSection/HeroSection";
 import { getGames } from "@/libs/apis";
 import { NextPage } from "next";
-
+export const fetchCache = 'force-no-store'
+export const revalidate = 0 // seconds
+export const dynamic = 'force-dynamic'
 const Games: NextPage = async (props) => {
   // console.log(props);
   // { params: {}, searchParams: {} }

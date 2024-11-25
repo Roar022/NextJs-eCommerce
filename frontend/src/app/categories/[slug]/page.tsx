@@ -3,7 +3,9 @@ import NewsLetter from "@/components/NewsLetter/NewsLetter";
 import { getCategoriesGames, getCategory } from "@/libs/apis";
 import React from "react";
 import { NextPage } from "next";
-
+export const fetchCache = 'force-no-store'
+export const revalidate = 0 // seconds
+export const dynamic = 'force-dynamic'
 interface GameCategoryProps {
   params: { slug: string };
 }

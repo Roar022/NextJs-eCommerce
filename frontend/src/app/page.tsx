@@ -5,7 +5,9 @@ import Image from "next/image";
 import GameCategoryCard from "@/components/GameCategoryCard/GameCategoryCard";
 import { getCategories, getGames, getRecentGames } from "@/libs/apis";
 import NewsLetter from "@/components/NewsLetter/NewsLetter";
-
+export const fetchCache = 'force-no-store'
+export const revalidate = 0 // seconds
+export const dynamic = 'force-dynamic'
 export default async function Home() {
   const categories = await getCategories();
   const games = await getGames();

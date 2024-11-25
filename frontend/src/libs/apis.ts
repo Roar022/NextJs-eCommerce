@@ -2,7 +2,9 @@ import { Category } from "@/models/category";
 import sanityClient from "./sanity";
 import { Games, GameSubset } from "@/models/games";
 import axios from "axios";
-
+export const fetchCache = 'force-no-store'
+export const revalidate = 0 // seconds
+export const dynamic = 'force-dynamic'
 export const getCategories = async (): Promise<Category[]> => {
   const query = `*[_type == "category"][0...10] {
     _id,
